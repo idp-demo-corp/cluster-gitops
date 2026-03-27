@@ -27,7 +27,6 @@ spec:
     #   secrets:
     #     - name: backstage-tls
     #       key: ca.crt
-    replicas: 1
     route:
       enabled: true
   database:
