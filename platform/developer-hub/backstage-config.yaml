@@ -69,7 +69,7 @@ data:
       providers:
         github:
           templates:
-            organization: '{{ .Values.git.org }}'
+            organization: idp-demo-corp
             catalogPath: '/templates/**/*template.yaml'
             filters:
               branch: 'main'
@@ -81,7 +81,7 @@ data:
               timeout: { minutes: 1 }
               initialDelay: { seconds: 15 }
           userWorkloads:
-            organization: '{{ .Values.git.org }}'
+            organization: idp-demo-corp
             catalogPath: '/catalog-info.yaml'
             filters:
               branch: 'main'
