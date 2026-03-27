@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/idp-demo-corp/cluster-gitops.git
     path: platform/developer-hub
-    targetRevision: main
+    targetRevision: 8rsdt
   destination:
     server: https://kubernetes.default.svc
     namespace: developer-hub
