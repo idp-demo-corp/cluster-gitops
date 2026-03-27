@@ -1,0 +1,96 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: app-config-rhdh
+data:
+  app-config-rhdh.yaml: |
+    app:
+      title: IDP Demo Corp
+      baseUrl: "https://backstage-backstage-developer-hub.${CLUSTER_DOMAIN}"
+    
+    backend:
+      auth:
+        keys:
+          - secret: ${BACKEND_SECRET}
+      baseUrl: "https://backstage-backstage-developer-hub.${CLUSTER_DOMAIN}"
+      cors:
+        origin: "https://backstage-backstage-developer-hub.${CLUSTER_DOMAIN}"
+
+    signInPage: oidc
+
+    auth:
+      session:
+        secret: ${BACKEND_SECRET}
+      environment: demo
+
+    integrations:
+      github:
+        - host: github.com
+          token: ${GIT_TOKEN}
+
+    kubernetes:
+      clusterLocatorMethods:
+        - clusters:
+          - authProvider: serviceAccount
+            name: local-cluster
+            serviceAccountToken: ${token}
+            url: https://api.${CLUSTER_DOMAIN}:6443
+            skipTLSVerify: true
+          type: config
+      customResources:
+        - group: 'tekton.dev'
+          apiVersion: 'v1'
+          plural: 'pipelines'
+        - group: 'tekton.dev'
+          apiVersion: 'v1'
+          plural: 'pipelineruns'
+        - group: 'tekton.dev'
+          apiVersion: 'v1'
+          plural: 'taskruns'
+        - group: 'org.eclipse.che'
+          apiVersion: 'v2'
+          plural: 'checlusters'
+        - group: 'route.openshift.io'
+          apiVersion: 'v1'
+          plural: 'routes'
+      serviceLocatorMethod:
+          type: multiTenant
+    enabled:
+      github: true
+      githubOrg: true
+      kubernetes: true
+
+    catalog:
+      import:
+        entityFilename: catalog-info.yaml
+        pullRequestBranchName: backstage-integration
+      rules:
+        - allow: [Component, System, Group, Resource, Location, Template, API, Domain]
+      providers:
+        github:
+          templates:
+            organization: '{{ .Values.git.org }}'
+            catalogPath: '/templates/**/*template.yaml'
+            filters:
+              branch: 'main'
+              repository: 'software-templates'
+              kind:
+                - Template
+            schedule: # optional
+              frequency: { seconds: 15 }
+              timeout: { minutes: 1 }
+              initialDelay: { seconds: 15 }
+          userWorkloads:
+            organization: '{{ .Values.git.org }}'
+            catalogPath: '/catalog-info.yaml'
+            filters:
+              branch: 'main'
+              repository: '.*'
+              kind:
+                - System
+                - Api
+                - Component
+            schedule: # optional
+              frequency: { minutes: 1 }
+              timeout: { minutes: 1 }
+              initialDelay: { seconds: 15 }
