@@ -6,7 +6,7 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: eso-k8s-store
-    namespace: external-secrets
+    namespace: external-secrets-operator
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
