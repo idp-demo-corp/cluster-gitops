@@ -71,7 +71,7 @@ data:
             catalogPath: '/templates/**/*template.yaml'
             filters:
               branch: 'main'
-              repository: 'software-templates'
+              repository: '^(software-templates|scaffolder-templates)$'
               kind:
                 - Template
             schedule: # optional
