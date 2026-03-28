@@ -16,10 +16,15 @@ data:
       cors:
         origin: "https://backstage-backstage-developer-hub.${CLUSTER_DOMAIN}"
 
+    signInPage: guest
+
     auth:
+      environment: development
       session:
         secret: ${BACKEND_SECRET}
-      environment: demo
+      providers:
+        guest:
+          dangerouslyAllowOutsideDevelopment: true
 
     integrations:
       github:
