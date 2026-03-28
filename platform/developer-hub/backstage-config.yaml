@@ -16,8 +16,6 @@ data:
       cors:
         origin: "https://backstage-backstage-developer-hub.${CLUSTER_DOMAIN}"
 
-    signInPage: oidc
-
     auth:
       session:
         secret: ${BACKEND_SECRET}
