@@ -12,6 +12,7 @@ data:
       auth:
         keys:
           - secret: ${BACKEND_SECRET}
+        dangerouslyDisableDefaultAuthPolicy: true
       baseUrl: "https://backstage-backstage-developer-hub.${CLUSTER_DOMAIN}"
       cors:
         origin: "https://backstage-backstage-developer-hub.${CLUSTER_DOMAIN}"
