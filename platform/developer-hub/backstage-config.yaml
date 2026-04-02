@@ -98,3 +98,13 @@ data:
               frequency: { minutes: 1 }
               timeout: { minutes: 1 }
               initialDelay: { seconds: 15 }
+          testEntities:
+            organization: idp-demo-corp
+            catalogPath: '/test/catalog/*.yaml'
+            filters:
+              branch: 'main'
+              repository: '^scaffolder-templates$'
+            schedule:
+              frequency: { seconds: 30 }
+              timeout: { minutes: 1 }
+              initialDelay: { seconds: 5 }
