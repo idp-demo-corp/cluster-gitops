@@ -12,7 +12,13 @@ data:
       auth:
         keys:
           - secret: ${BACKEND_SECRET}
-        dangerouslyDisableDefaultAuthPolicy: true
+        externalAccess:
+          - type: static
+            options:
+              token: ${SCAFFOLDER_TEST_TOKEN}
+              subject: scaffolder-test-token
+            accessRestrictions:
+              - plugin: scaffolder
       baseUrl: "https://backstage-backstage-developer-hub.${CLUSTER_DOMAIN}"
       cors:
         origin: "https://backstage-backstage-developer-hub.${CLUSTER_DOMAIN}"
